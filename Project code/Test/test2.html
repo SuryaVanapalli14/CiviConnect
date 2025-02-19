@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivilConnect Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c;
+            color: white;
+        }
+        header {
+            background: #0d0d0d;
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+        nav ul li a.active {
+            color: rgba(211,47,47,1);
+        }
+        section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .hero {
+            background: url('bg1.jpg') no-repeat center center/cover;
+            color: white;
+            flex-direction: column;
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            transition: transform 0.5s ease-in-out, filter 0.5s ease-in-out;
+            filter: contrast(1.3) brightness(0.9) opacity(0.85);
+        }
+        .hero {
+            background: url('bg1.jpg') no-repeat center center/cover;
+            color: white;
+            flex-direction: column;
+            position: relative;
+            transition: transform 0.5s ease-in-out, filter 0.5s ease-in-out;
+            filter: contrast(1.3) brightness(0.9) opacity(0.85);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed; 
+            color: white;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100vh; 
+            border-radius: 15px; 
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); 
+            overflow: hidden;
+        
+        }
+        .hero:hover {
+            transform: scale(1.05);
+            filter: contrast(1.5) brightness(0.8) opacity(0.8); 
+        }
+        .role-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 50px;
+            background-color: #333;
+            flex-direction: column;
+        }
+        .role-box {
+            width: 40%;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+        }
+        .role-box:hover {
+            transform: scale(1.05);
+        }
+        .user {
+            background: url('loginbg1.jpg') no-repeat center center/cover;
+        }
+        .engineer {
+            background: url('loginbg2.jpg') no-repeat center center/cover;
+        }
+        .role-container h2 {
+            color: white;
+            margin-bottom: 30px;
+        }
+    </style>
+    <script>
+        function setActiveNavLink() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 50) {
+                    currentSection = section.id;
+                }
+            });
+
+            navLinks.forEach(link => {
+                if (link.getAttribute('data-section') === currentSection) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', setActiveNavLink);
+        window.addEventListener('load', setActiveNavLink);
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">CiviConnect</div>
+        <nav>
+            <ul>
+                <li><a href="#home" class="nav-link" data-section="home">Home</a></li>
+                <li><a href="#getstarted" class="nav-link" data-section="getstarted">Get Started</a></li>
+                <li><a href="#aboutus" class="nav-link" data-section="aboutus">About Us</a></li>
+                <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="home" id="home">
+        <div class="home-content">
+            <h1 class="title"><span style="color: rgb(255, 0, 0);">C</span>ivi<span style="color: rgb(255, 0, 0);">C</span>onnect</h1>
+            <p class="description">
+                CiviConnect is a platform that bridges the gap between Civilian and Civil Engineer seeking construction related services. 
+                Whether you're looking for structural engineers, architects, or construction consultants, we provide a seamless connection for your needs.
+            </p>
+            <p class="description">
+                With interactive tools, project tracking, and expert recommendations, CiviConnect revolutionizes the way construction projects are planned and executed.
+            </p>
+            <h1></h1>
+            <h1></h1>
+            <a href="#getstarted" class="btn">Get Started</a>
+        </div>
+    </section>
+    
+    <style>
+        .home {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100vh;
+            background-color: #1c1c1c;
+            color: white;
+            padding: 50px;
+        }
+        
+        .title {
+            font-size: 4rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        .description {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-top: 20px;
+            line-height: 1.6;
+            opacity: 0;
+            animation: slideUp 1s ease-in-out forwards;
+        }
+        .btn-container {
+            margin-top: 30px;  
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: red;
+            color: white;
+            font-size: 1.3rem;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        
+        .btn:hover {
+            background: rgba(211,47,47,1);
+            transform: scale(1.05);
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+    </style>
+    
+
+    <section id="getstarted" class="login-section">
+        <div class="role-container">
+            <h2>Please select your role</h2>
+        
+            <div class="role-box user" onclick="window.location.href='user-login.html'">
+                <div class="overlay">User</div>
+            </div>
+        
+            <div class="role-box engineer" onclick="window.location.href='engineer-login.html'">
+                <div class="overlay">Engineer</div>
+            </div>
+        </div>
+    </section>
+    
+    <style>
+        .login-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            padding: 50px;
+            background-color: #1c1c1c;
+            color: white;
+            height: 100vh;
+        }
+        .role-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 50px;
+            background-color: #333;
+            flex-direction: column;
+            border-radius: 6%;
+        }
+        .role-box {
+            width: 400px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+        }
+    
+        .role-box:hover {
+            transform: scale(1.05);
+        }
+    
+        .user {
+            background: url('loginbg1.jpg') no-repeat center center/cover;
+        }
+    
+        .engineer {
+            background: url('loginbg2.jpg') no-repeat center center/cover;
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+    <section id="aboutus">
+        <h1>About Us</h1>
+    </section>
+
+    <section id="contact">
+        <h1>Contact Section</h1>
+    </section>
+    <script>
+        function setActiveNavLink() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100; 
+                if (window.scrollY >= sectionTop) {
+                    currentSection = section.id;
+                }
+            });
+
+            navLinks.forEach(link => {
+                if (link.getAttribute('data-section') === currentSection) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', setActiveNavLink);
+        window.addEventListener('load', setActiveNavLink);
+    </script>
+</body>
+</html>

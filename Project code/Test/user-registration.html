@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c;
+            color: white;
+        }
+        .container {
+    background: #0d0d0d;
+    padding: 40px;  /* Increased padding */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    width: 400px;
+    margin: 100px auto;
+}
+        .container h2 {
+            text-align: center;
+            color: white;
+        }
+        .form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;  /* Increased margin */
+    gap: 15px;  /* Added gap between inputs */
+}
+.form-group input {
+    width: calc(50% - 8px);  /* Adjusted width accounting for gap */
+    padding: 12px;  /* Increased padding */
+    border: 1px solid #555;
+    border-radius: 5px;
+    background: #333;
+    color: white;
+}
+.form-control {
+    width: 93.5%;
+    padding: 12px;  /* Increased padding */
+    border: 1px solid #555;
+    border-radius: 5px;
+    background: #333;
+    color: white;
+    margin-bottom: 20px;  /* Increased margin */
+}
+textarea.form-control {
+    width: 93.5%;
+    resize: vertical;
+    min-height: 60px;  /* Set minimum height */
+}
+        .checkbox {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .checkbox input {
+            margin-right: 10px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background: rgba(211, 47, 47, 0.8);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: rgba(211, 47, 47, 1.2);
+        }
+        .checkbox label {
+            font-size: 0.7em;
+        }
+        .checkbox-label a {
+            color: #8ba3d4; /* pale blue color */
+            text-decoration: none;
+        }
+        .checkbox-label a:hover {
+            text-decoration: underline;
+        }   
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>User Registration</h2>
+        <form>
+            <div class="form-group">
+                <input type="text" placeholder="First Name" required>
+                <input type="text" placeholder="Last Name" required>
+            </div>
+            <input type="text" class="form-control" placeholder="Mobile Number" required>
+            <input type="email" class="form-control" placeholder="Email ID" required>
+            <div class="form-group">
+                <input type="password" placeholder="Password" required>
+                <input type="password" placeholder="Confirm Password" required>
+            </div>
+            <textarea class="form-control" placeholder="Address" rows="3" required></textarea>
+            <div class="checkbox">
+                <input type="checkbox" required>
+                <label class="checkbox-label">I agree to the <a href="#" label= l&a>License & Agreement</a></label>
+            </div>
+            <button type="submit" class="btn">Register</button>
+        </form>
+    </div>
+</body>
+</html>
