@@ -76,19 +76,6 @@
             transform: scale(1.02);
             box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
         }
-        .checkbox label {
-            font-size: 0.7em;
-        }
-        .checkbox-label a {
-            color: #8ba3d4;
-            text-decoration: none;
-        }
-        .checkbox-label a:hover {
-            text-decoration: underline;
-        } 
-        .checkbox:last-of-type {
-            margin-bottom: 10px;
-        } 
         label {
             display: block;
             margin-bottom: 5px;
@@ -120,10 +107,6 @@
             margin-left: 20px;
         }
 
-        nav ul li {
-            display: inline;
-        }
-
         nav ul li a {
             color: white;
             text-decoration: none;
@@ -139,6 +122,78 @@
             color: red;
         }
     </style>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-storage.js";
+    
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBVAA8_OwD46ElvSPvWk_zmkqmFb-XzBGE",
+            authDomain: "civiconnect-784e1.firebaseapp.com",
+            projectId: "civiconnect-784e1",
+            storageBucket: "civiconnect-784e1.appspot.com",
+            messagingSenderId: "1023470668022",
+            appId: "1:1023470668022:web:3ce4aaa65fc06c3abdc4d7",
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+    
+        // Function to handle registration
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+        
+            form.addEventListener("submit", async function (event) {
+                event.preventDefault();
+        
+                const firstName = document.querySelectorAll(".form-group input")[0].value;
+                const lastName = document.querySelectorAll(".form-group input")[1].value;
+                const mobile = document.querySelector(".form-control[type='text']").value;
+                const email = document.querySelector(".form-control[type='email']").value;
+                const password = document.querySelectorAll(".form-group input[type='password']")[0].value;
+                const confirmPassword = document.querySelectorAll(".form-group input[type='password']")[1].value;
+                const address = document.querySelector("textarea").value;
+                const resumeFile = document.getElementById("resume").files[0];
+        
+                if (password !== confirmPassword) {
+                    alert("Passwords do not match!");
+                    return;
+                }
+        
+                try {
+                    // Create user in Firebase Authentication
+                    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                    const userId = userCredential.user.uid;
+        
+                    let resumeURL = null;
+                    if (resumeFile) {
+                        // Upload Resume to Firebase Storage
+                        const resumeRef = ref(storage, `resumes/${userId}/${resumeFile.name}`);
+                        await uploadBytes(resumeRef, resumeFile);
+                        resumeURL = await getDownloadURL(resumeRef);
+                    }
+        
+                    // ✅ Store Engineer Data Inside "engineer" Collection
+                    await setDoc(doc(db, "engineer", userId), {
+                        userId, firstName, lastName, mobile, email, address, resumeURL
+                    });
+        
+                    alert("Registration Successful! Redirecting to login...");
+                    window.location.href = "login.html";
+                } catch (error) {
+                    console.error("Firestore Error:", error);
+                    alert("Error: " + error.message);
+                }
+            });
+        });
+        
+    </script>
+    
 </head>
 <body>
     <header>
@@ -164,17 +219,9 @@
                 <input type="password" placeholder="Password" required>
                 <input type="password" placeholder="Confirm Password" required>
             </div>
-            <textarea class="form-control" placeholder="Address" rows="3" required></textarea>
+            <textarea class="form-control" placeholder="Address" required></textarea>
             <label for="resume">Upload your Resume</label>
             <input type="file" id="resume" class="form-control" accept=".pdf" required>
-            <div class="checkbox">
-                <input type="checkbox" required>
-                <label class="checkbox-label">I'm a Civil Engineering Graduate </label>  
-            </div>
-            <div class="checkbox">              
-                <input type="checkbox" required>
-                <label class="checkbox-label">I agree to the <a href="#" label= l&a>License & Agreement</a></label>
-            </div>
             <button type="submit" class="btn">Submit</button>
         </form>
     </div>

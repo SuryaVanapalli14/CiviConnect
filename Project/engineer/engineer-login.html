@@ -92,6 +92,45 @@
             cursor: pointer;
         }
     </style>
+    <script type="module">
+        // Import Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+    
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBVAA8_OwD46ElvSPvWk_zmkqmFb-XzBGE",
+            authDomain: "civiconnect-784e1.firebaseapp.com",
+            projectId: "civiconnect-784e1",
+            storageBucket: "civiconnect-784e1.appspot.com",
+            messagingSenderId: "1023470668022",
+            appId: "1:1023470668022:web:3ce4aaa65fc06c3abdc4d7",
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+    
+        // Function to handle login
+        window.submitForm = async function () {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+    
+            if (!email || !password) {
+                alert("Please enter both email and password.");
+                return;
+            }
+    
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                alert("Login Successful!");
+                window.location.href = "../engineer/home.html"; 
+            } catch (error) {
+                alert("Error: " + error.message);
+            }
+        };
+    </script>
+    
 </head>
 <body>
     <header>
