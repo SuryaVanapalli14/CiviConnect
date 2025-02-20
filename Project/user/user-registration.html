@@ -134,6 +134,79 @@
             color: red;
         } 
     </style>
+    <script type="module">
+        // Import Firebase SDK modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";        
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBVAA8_OwD46ElvSPvWk_zmkqmFb-XzBGE",
+            authDomain: "civiconnect-784e1.firebaseapp.com",
+            projectId: "civiconnect-784e1",
+            storageBucket: "civiconnect-784e1.firebasestorage.app",
+            messagingSenderId: "1023470668022",
+            appId: "1:1023470668022:web:3ce4aaa65fc06c3abdc4d7",
+            measurementId: "G-LG3NB41Q6H"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Register User Function
+        document.getElementById("registerForm").addEventListener("submit", async function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Collect user input values
+            let firstName = document.getElementById("firstName").value;
+            let lastName = document.getElementById("lastName").value;
+            let mobile = document.getElementById("mobile").value;  // FIXED ID
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirmPassword").value;
+            let address = document.getElementById("address").value;
+
+            // Validate password confirmation
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            try {
+                // Create user with Firebase Authentication
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Save additional user details in Firestore
+                await setDoc(doc(db, "users", user.uid), {
+                    firstName: firstName,
+                    lastName: lastName,
+                    mobile: mobile,  // FIXED FIELD NAME
+                    email: email,
+                    address: address,
+                    userId: user.uid
+                });
+
+                alert("Registration Successful!");
+                console.log("User Created & Data Saved:", user);
+                
+                // Redirect to a success page or login page (optional)
+                window.location.href = "../user/user-login.html";
+
+            } catch (error) {
+                alert("Error: " + error.message);
+                console.error("Error Code:", error.code, "Message:", error.message);
+            }
+        });
+
+
+    </script>
+    
+    
+      
 </head>
 <body>
     <header>
@@ -149,24 +222,25 @@
     <section>
     <div class="container">
         <h2>User Registration</h2>
-        <form>
+        <form id="registerForm">
             <div class="form-group">
-                <input type="text" placeholder="First Name" required>
-                <input type="text" placeholder="Last Name" required>
+                <input type="text" id="firstName" placeholder="First Name" required>
+                <input type="text" id="lastName" placeholder="Last Name" required>
             </div>
-            <input type="text" class="form-control" placeholder="Mobile Number" required>
-            <input type="email" class="form-control" placeholder="Email ID" required>
+            <input type="text" class="form-control" id="mobile" placeholder="Mobile Number" required>
+            <input type="email" class="form-control" id="email" placeholder="Email ID" required>
             <div class="form-group">
-                <input type="password" placeholder="Password" required>
-                <input type="password" placeholder="Confirm Password" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
             </div>
-            <textarea class="form-control" placeholder="Address" rows="3" required></textarea>
+            <textarea class="form-control" id="address" placeholder="Address" rows="3" required></textarea>
             <div class="checkbox">
                 <input type="checkbox" required>
-                <label class="checkbox-label">I agree to the <a href="#" label= l&a>License & Agreement</a></label>
+                <label class="checkbox-label">I agree to the <a href="#">License & Agreement</a></label>
             </div>
             <button type="submit" class="btn">Register</button>
         </form>
+        
     </div>
     </section>
 </body>

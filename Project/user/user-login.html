@@ -3,7 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In & Sign Up</title>
+    <title>Login - CiviConnect</title>
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+
+        // Firebase configuration (Replace with your actual config)
+        const firebaseConfig = {
+            apiKey: "AIzaSyBVAA8_OwD46ElvSPvWk_zmkqmFb-XzBGE",
+            authDomain: "civiconnect-784e1.firebaseapp.com",
+            projectId: "civiconnect-784e1",
+            storageBucket: "civiconnect-784e1.firebasestorage.app",
+            messagingSenderId: "1023470668022",
+            appId: "1:1023470668022:web:3ce4aaa65fc06c3abdc4d7",
+            measurementId: "G-LG3NB41Q6H"
+        };
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Login function
+        window.submitForm = async function () {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                alert("Login Successful!");
+                window.location.href = "../user/home.html"; // Redirect after login
+            } catch (error) {
+                alert("Error: " + error.message);
+            }
+        };
+    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -68,7 +101,6 @@
             background: #333;
             color: white;
             border-radius: 5px;
-            margin-bottom: 10px; 
         }
         button {
             width: 90%;
@@ -108,11 +140,9 @@
             <h2 id="form-title">Sign In</h2>
             <input type="email" id="email" placeholder="Email" required>
             <input type="password" id="password" placeholder="Password" required>
-            <button onclick="submitForm()">Submit</button>
+            <button onclick="submitForm()">Login</button>
             <p>Don't have an account? <a href="user-registration.html">Register here.</a></p>
         </div>
-
     </section>
-
 </body>
 </html>
