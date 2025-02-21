@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In & Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c;
+            color: white;
+        }
+        header {
+            background: rgb(13, 13, 13);
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+        nav ul li a.active {
+            color: red;
+        }
+        section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .container {
+            background: rgb(13, 13, 13);
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.1);
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+            margin: 120px auto;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #555;
+            background: #333;
+            color: white;
+            border-radius: 5px;
+            margin-bottom: 10px; 
+        }
+        button {
+            width: 96.5%;
+            padding: 10px;
+            margin: 15px 0;
+            background: rgba(250, 40, 40, 1.8);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: rgba(211, 47, 47, 1.2);
+            transform: scale(1.02);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+        .toggle {
+            margin-top: 10px;
+            color: rgb(255, 0, 0);
+            cursor: pointer;
+        }
+    </style>
+    <script type="module">
+        // Import Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+    
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBVAA8_OwD46ElvSPvWk_zmkqmFb-XzBGE",
+            authDomain: "civiconnect-784e1.firebaseapp.com",
+            projectId: "civiconnect-784e1",
+            storageBucket: "civiconnect-784e1.appspot.com",
+            messagingSenderId: "1023470668022",
+            appId: "1:1023470668022:web:3ce4aaa65fc06c3abdc4d7",
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+    
+        // Function to handle login
+        window.submitForm = async function () {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+    
+            if (!email || !password) {
+                alert("Please enter both email and password.");
+                return;
+            }
+    
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                alert("Login Successful!");
+                window.location.href = "../engineer/engineer-dashboard.html"; 
+            } catch (error) {
+                alert("Error: " + error.message);
+            }
+        };
+    </script>
+    
+</head>
+<body>
+    <header>
+        <div class="logo">CiviConnect</div>
+        <nav>
+            <ul>
+                <li><a href="../dashboard/dashboard.html" class="active">Home</a></li>
+                <li><a href="../dashboard/dashboard.html#aboutus">About us</a></li>
+                <li><a href="../dashboard/dashboard.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+        <div class="container" id="form-container">
+            <h2 id="form-title">Sign In</h2>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button onclick="submitForm()">Submit</button>
+            <p>Don't have an account? <a href="engineer-registration.html">Register here.</a></p>
+        </div>
+    </section>
+</body>
+</html>

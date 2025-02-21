@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Requests</title>
+    <style>
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgb(13, 13, 13);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+        }
+
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .profile-icon {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: auto;
+            transition: background-color 0.3s; 
+        }
+
+        .profile-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: calc(100% - 1px);
+            background-color: #333;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            z-index: 1;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: 20px;
+            width: 100%;
+            height: 5px;
+            background-color: transparent;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #444;
+        }
+
+        .dropdown-content a:first-child {
+            border-radius: 8px 8px 0 0;
+        }
+
+        .dropdown-content a:last-child {
+            border-radius: 0 0 8px 8px;
+        }
+
+        .profile-dropdown:hover .dropdown-content {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        .user-icon {
+            margin-right: 8px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c;
+            color: white;
+        }
+
+        .request-container {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .request-card {
+            display: flex;
+            background: #333;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .request-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .request-image {
+            width: 400px;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .request-details {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .request-details h3 {
+            margin-top: 0;
+            font-size: 1.8em;
+            color: #fff;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            background: #ff0000;
+            color: white;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .status-badge:hover {
+            background: #cc0000;
+        }
+
+        .category-title {
+            text-align: center;
+            padding: 20px;
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+
+        .profile-image {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .profile-icon {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">CiviConnect</div>
+        <div class="profile-dropdown">
+            <div class="profile-icon">
+                <img src="../assets/profile-placeholder.jpg" alt="Profile" class="profile-image" id="profileImage">
+                <span id="userName">John Doe</span>
+            </div>
+            <div class="dropdown-content">
+                <a href="#">Profile</a>
+                <a href="#">Ongoing</a>
+                <a href="#">History</a>
+                <a href="../dashboard/dashboard.html#contact">Contact us?</a>
+                <a href="../engineer/engineer-login.html">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="request-container">
+        <h1 class="category-title">Current Requests</h1>
+
+        <div class="request-card" onclick="showDetails(1)">
+            <img src="../assets/house1.jpg" alt="House Project" class="request-image">
+            <div class="request-details">
+                <h3>Modern Villa Construction</h3>
+                <p><strong>Client:</strong> John Smith</p>
+                <p><strong>Location:</strong> 123 Park Avenue</p>
+                <p><strong>Description:</strong> Looking to build a modern 3BHK villa with contemporary design...</p>
+                <span class="status-badge">New Request</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showDetails(id) {
+            window.location.href = `detail.html?id=${id}`;
+        }
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category');
+            if (category) {
+                document.querySelector('.category-title').textContent = `${category} Requests`;
+            }
+    
+            const userName = localStorage.getItem('userName') || 'Engineer';
+            const profileImage = document.getElementById('profileImage');
+            
+            profileImage.src = '../assets/profile-placeholder.jpeg';
+            
+            const userImage = localStorage.getItem('userImage');
+            if (userImage) {
+                const tempImage = new Image();
+                tempImage.onload = function() {
+                    profileImage.src = userImage;
+                };
+                tempImage.src = userImage;
+            }
+    
+            document.getElementById('userName').textContent = userName;
+    
+            profileImage.onerror = function() {
+                this.src = '../assets/profile-placeholder.jpg';
+                this.onerror = null;
+            };
+        });
+    </script>
+</body>
+</html>

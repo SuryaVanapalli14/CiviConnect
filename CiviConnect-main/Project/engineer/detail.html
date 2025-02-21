@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Details</title>
+    <style>
+        header {
+            background: rgb(13, 13, 13);
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .profile-icon {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: auto;
+            transition: background-color 0.3s;
+        }
+
+        .profile-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-image {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: calc(100% - 1px);
+            background-color: #333;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            z-index: 1;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-top: 0;
+        }
+
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: 20px;
+            width: 100%;
+            height: 5px;
+            background-color: transparent;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #444;
+        }
+
+        .dropdown-content a:first-child {
+            border-radius: 8px 8px 0 0;
+        }
+
+        .dropdown-content a:last-child {
+            border-radius: 0 0 8px 8px;
+        }
+
+        .profile-dropdown:hover .dropdown-content {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c;
+            color: white;
+        }
+
+        .detail-container {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .image-gallery img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .project-details {
+            background: #333;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #ff0000;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .take-project-btn {
+            display: block;
+            width: 100%;
+            padding: 8px 20px;
+            background: #ff0000;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .take-project-btn:hover {
+            background: #cc2500;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">CiviConnect</div>
+        <div class="profile-dropdown">
+            <div class="profile-icon">
+                <img src="../assets/profile-placeholder.jpeg" alt="Profile" class="profile-image" id="profileImage">
+                <span id="userName">Engineer</span>
+            </div>
+            <div class="dropdown-content">
+                <a href="#">Profile</a>
+                <a href="#">Ongoing</a>
+                <a href="#">History</a>
+                <a href="../dashboard/dashboard.html#contact">Contact us?</a>
+                <a href="../engineer/engineer-login.html">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="detail-container">
+        <a href="javascript:history.back()" class="back-button">← Back to Requests</a>
+        
+        <div class="image-gallery">
+            <img src="../assets/house1.jpg" alt="House View 1">
+            <img src="../assets/house2.jpg" alt="House View 2">
+            <img src="../assets/house3.jpg" alt="House View 3">
+            <img src="../assets/house4.jpg" alt="House View 4">
+        </div>
+
+        <div class="project-details">
+            <h2>Modern Villa Construction</h2>
+            <p><strong>Client:</strong> John Smith</p>
+            <p><strong>Location:</strong> 123 Park Avenue</p>
+            <p><strong>Budget:</strong> $500,000</p>
+            <p><strong>Timeline:</strong> 12 months</p>
+            <p><strong>Detailed Description:</strong></p>
+            <p>Looking to build a modern 3BHK villa with contemporary design. The house should include:</p>
+            <ul>
+                <li>3 Bedrooms with attached bathrooms</li>
+                <li>Large living room with open kitchen concept</li>
+                <li>Double car garage</li>
+                <li>Garden area in the backyard</li>
+                <li>Modern amenities and fixtures</li>
+            </ul>
+            <button class="take-project-btn" onclick="takeProject()">Take Project</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get engineer name from session storage
+            const engineerName = sessionStorage.getItem('engineerName') || 'Engineer';
+            document.getElementById('userName').textContent = engineerName;
+            
+            // Handle profile image
+            const profileImage = document.getElementById('profileImage');
+            profileImage.onerror = function() {
+                this.src = '../assets/profile-placeholder.jpeg';
+                this.onerror = null;
+            };
+        });
+        function takeProject() {
+            alert("Request sent to User successfully!");
+        }
+    </script>
+</body>
+</html>
